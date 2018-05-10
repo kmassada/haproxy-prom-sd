@@ -1,5 +1,11 @@
 # HAPROXY PROM SD
 
+## Plan
+
+![plan](haproxy-prom-sd.png)
+
+## Excecute
+
 ```shell
  kubectl create configmap haproxy-cfgmap --from-file=haproxy.cfg --dry-run -o yaml > haproxy-configmap.yaml
 
@@ -30,3 +36,7 @@ Start Custom Metrics - Stackdriver Adapter.
 ```shell
 kubectl apply -f https://raw.githubusercontent.com/GoogleCloudPlatform/k8s-stackdriver/master/custom-metrics-stackdriver-adapter/deploy/production/adapter.yaml
 ```
+
+## Consume
+
+![consume](stackdriver-graph.png)
