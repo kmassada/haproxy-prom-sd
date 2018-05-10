@@ -1,0 +1,38 @@
+apiVersion: v1
+data:
+  haproxy.cfg: |-
+    global
+      daemon
+      maxconn 4096
+
+    defaults
+      mode http
+      balance leastconn
+      retries 3
+      option httpchk GET /health HTTP/1.0\r\nHost:\ app.example.com
+      option http-server-close
+      option dontlognull
+      timeout connect    30ms
+      timeout check    1000ms
+      timeout client  30000ms
+      timeout server  30000ms
+
+    frontend stats
+      bind *:26999
+      mode http
+      stats enable
+      stats uri /
+
+    frontend app.example.com-http
+      bind *:8000
+      log /dev/log local2 info
+      option httplog
+
+      default_backend BACKEND_app
+
+    backend BACKEND_app
+      server app 127.0.0.1:8080
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: haproxy-cfgmap
