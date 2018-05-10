@@ -60,7 +60,7 @@ spec:
         command:
           - /monitor
           - --stackdriver-prefix=custom.googleapis.com
-          - --source=kube-state-metrics:http://localhost:9101/metrics
+          - --source=something-else:http://localhost:9101/metrics
           - --pod-id=$(POD_NAME)
           - --namespace-id=$(POD_NAMESPACE)
       volumes:
